@@ -31,7 +31,7 @@ class TokenSigner():
     def __init__(self, crypto_backend=default_backend()):
         self.crypto_backend = crypto_backend
         self.token_type = 'JWT'
-        self.signing_algorithm = 'ES256'
+        self.signing_algorithm = 'ES256K'
         self.signing_function = ec.ECDSA(hashes.SHA256())
 
     def _get_signer(self, signing_key):
