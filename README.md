@@ -6,6 +6,12 @@
 $ pip install jwtpy
 ```
 
+### Importing
+
+```python
+from jwtpy import TokenSigner, TokenVerifier
+```
+
 ### Signing Tokens
 
 ```python
