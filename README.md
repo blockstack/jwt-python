@@ -1,15 +1,15 @@
-# JWT Python
+# JSON Tokens
 
 ### Installation
 
 ```bash
-$ pip install jwtpy
+$ pip install jsontokens
 ```
 
 ### Signing Tokens
 
 ```python
-from jwtpy import TokenSigner
+from jsontokens import TokenSigner
 from pybitcoin import BitcoinPrivateKey
 
 token_signer = TokenSigner()
@@ -28,7 +28,7 @@ eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3N1ZWRBdCI6IjE0NDA3MTM0MTQuMTkifQ.7UpS
 ### Decoding Tokens
 
 ```python
-from jwtpy import decode_token
+from jsontokens import decode_token
 
 decoded_token = decode_token(token)
 ```
@@ -51,7 +51,7 @@ decoded_token = decode_token(token)
 ### Verifying Tokens
 
 ```python
-from jwtpy import TokenVerifier
+from jsontokens import TokenVerifier
 from pybitcoin import BitcoinPublicKey
 
 token_verifier = TokenVerifier()
