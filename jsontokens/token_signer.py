@@ -12,19 +12,16 @@ import base64
 import binascii
 import traceback
 from collections import Mapping
-
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.asymmetric import ec, padding
 from cryptography.exceptions import InvalidSignature
 
-from jwt.utils import (
+from .utils import (
     base64url_encode, base64url_decode, der_to_raw_signature,
-    raw_to_der_signature
+    raw_to_der_signature, json_encode, DecodeError
 )
-from jwt import DecodeError
-from .utils import json_encode
-from .keys import load_signing_key
+from .key_loading import load_signing_key
 
 
 class TokenSigner():

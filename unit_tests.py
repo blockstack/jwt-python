@@ -4,7 +4,7 @@ import unittest
 from test import test_support
 from pybitcoin import BitcoinPrivateKey, BitcoinPublicKey
 from cryptography.hazmat.backends.openssl import backend as openssl_backend
-from jwtpy import TokenSigner, TokenVerifier, decode_token
+from jsontokens import TokenSigner, TokenVerifier, decode_token
 
 
 class MainTests(unittest.TestCase):
