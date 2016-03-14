@@ -19,7 +19,7 @@ setup(
     zip_safe=False,
     install_requires=[
         'cryptography==1.2.3',
-        'pybitcoin==0.9.8',
+        'keylib==0.0.0',
         'requests==2.9.1',
         'utilitybelt==0.2.6'
     ],

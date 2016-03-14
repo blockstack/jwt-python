@@ -19,6 +19,26 @@ from cryptography.hazmat.primitives.serialization import (
 from cryptography.hazmat.primitives.asymmetric.ec import (
     EllipticCurvePrivateKey, EllipticCurvePublicKey
 )
+from keylib import ECPrivateKey, ECPublicKey
+from utilitybelt import is_hex
+
+
+class InvalidKeyError(ValueError):
+    def __init__(self, message, errors):
+        super(InvalidKeyError, self).__init__(message)
+        self.errors = errors
+
+
+class InvalidPrivateKeyError(InvalidKeyError):
+    def __init__(self):
+        message = "Signing key must be a valid private key in PEM, DER, or raw hex format."
+        super(InvalidKeyError, self).__init__(message)
+
+
+class InvalidPublicKeyError(InvalidKeyError):
+    def __init__(self):
+        message = "Verifying key must be a valid private key in PEM, DER, or raw hex format."
+        super(InvalidKeyError, self).__init__(message)
 
 
 def load_signing_key(signing_key, crypto_backend=default_backend()):
@@ -39,16 +59,30 @@ def load_signing_key(signing_key, crypto_backend=default_backend()):
             raise ValueError(
                 'Signing key must be a private key, not a public key.')
 
-        try:
-            return load_der_private_key(
-                signing_key, password=None, backend=crypto_backend)
-        except:
+        if is_hex(signing_key):
+            try:
+                private_key_pem = ECPrivateKey(signing_key).to_pem()
+            except:
+                pass
+            else:
+                try:
+                    return load_pem_private_key(
+                        private_key_pem, password=None, backend=crypto_backend)
+                except:
+                    raise InvalidPrivateKeyError()
+
+            try:
+                return load_der_private_key(
+                    signing_key, password=None, backend=crypto_backend)
+            except Exception as e:
+                traceback.print_exc()
+                raise InvalidPrivateKeyError()
+        else:
             try:
                 return load_pem_private_key(
                     signing_key, password=None, backend=crypto_backend)
-            except Exception as e:
-                raise ValueError(
-                    'Signing key must be a valid private key PEM or DER.')
+            except:
+                raise InvalidPrivateKeyError()
     else:
         raise ValueError('Signing key must be in string or unicode format.')
 
@@ -62,14 +96,29 @@ def load_verifying_key(verifying_key, crypto_backend=default_backend()):
     if isinstance(verifying_key, EllipticCurvePublicKey):
         return verifying_key
     elif isinstance(verifying_key, (str, unicode)):
-        try:
-            return load_der_public_key(
-                verifying_key, backend=crypto_backend)
-        except:
+        if is_hex(verifying_key):
+            try:
+                public_key_pem = ECPublicKey(verifying_key).to_pem()
+            except:
+                pass
+            else:
+                try:
+                    return load_pem_public_key(
+                        public_key_pem, backend=crypto_backend)
+                except Exception as e:
+                    traceback.print_exc()
+                    raise InvalidPublicKeyError()
+
+            try:
+                return load_der_public_key(
+                    verifying_key, backend=crypto_backend)
+            except:
+                raise InvalidPublicKeyError()
+        else:
             try:
                 return load_pem_public_key(
                     verifying_key, backend=crypto_backend)
             except Exception as e:
-                raise ValueError('Invalid verifying key format')
+                raise InvalidPublicKeyError()
     else:
-        raise ValueError('Invalid verification key type')
+        raise ValueError('Verifying key must be in string or unicode format.')
