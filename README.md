@@ -1,5 +1,11 @@
 # JSON Tokens
 
+[![CircleCI](https://img.shields.io/circleci/project/blockstack/jsontokens-py.svg)](https://circleci.com/gh/blockstack/jsontokens-py)
+[![PyPI](https://img.shields.io/pypi/v/jsontokens.svg)](https://pypi.python.org/pypi/jsontokens/)
+[![PyPI](https://img.shields.io/pypi/dm/jsontokens.svg)](https://pypi.python.org/pypi/jsontokens/)
+[![PyPI](https://img.shields.io/pypi/l/jsontokens.svg)](https://github.com/namesystem/jsontokens/blob/master/LICENSE)
+[![Slack](http://slack.blockstack.org/badge.svg)](http://slack.blockstack.org/)
+
 ### Installation
 
 ```bash
