@@ -18,7 +18,7 @@ setup(
     packages=find_packages(),
     zip_safe=False,
     install_requires=[
-        'cryptography>=1.2.3',
+        'cryptography==1.8.2',
         'keylib>=0.0.2',
         'requests>=2.9.1',
         'utilitybelt>=0.2.6'
