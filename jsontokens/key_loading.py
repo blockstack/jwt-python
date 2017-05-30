@@ -11,7 +11,6 @@ import traceback
 
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.backends.openssl.backend import Backend
-from cryptography.hazmat.backends.multibackend import MultiBackend
 from cryptography.hazmat.primitives.serialization import (
     load_der_private_key, load_pem_private_key,
     load_der_public_key, load_pem_public_key
@@ -44,7 +43,7 @@ class InvalidPublicKeyError(InvalidKeyError):
 def load_signing_key(signing_key, crypto_backend=default_backend()):
     """ Optional: crypto backend object from the "cryptography" python library
     """
-    if not isinstance(crypto_backend, (Backend, MultiBackend)):
+    if not isinstance(crypto_backend, Backend):
         raise ValueError('backend must be a valid Backend object')
 
     if isinstance(signing_key, EllipticCurvePrivateKey):
@@ -90,7 +89,7 @@ def load_signing_key(signing_key, crypto_backend=default_backend()):
 def load_verifying_key(verifying_key, crypto_backend=default_backend()):
     """ Optional: crypto backend object from the "cryptography" python library
     """
-    if not isinstance(crypto_backend, (Backend, MultiBackend)):
+    if not isinstance(crypto_backend, Backend):
         raise ValueError('backend must be a valid Backend object')
 
     if isinstance(verifying_key, EllipticCurvePublicKey):
