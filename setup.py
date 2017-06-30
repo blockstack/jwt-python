@@ -5,6 +5,12 @@ JSON Tokens
 """
 
 from setuptools import setup, find_packages
+import unittest
+
+def get_test_suite():
+    test_loader = unittest.TestLoader()
+    test_suite = test_loader.discover('.', pattern='unit_tests.py')
+    return test_suite
 
 setup(
     name='jsontokens',
@@ -17,6 +23,7 @@ setup(
     keywords='json web token sign verify encode decode signature',
     packages=find_packages(),
     zip_safe=False,
+    test_suite="setup.get_test_suite",
     install_requires=[
         'cryptography>=1.9',
         'keylib>=0.1.1',
