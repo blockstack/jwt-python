@@ -18,8 +18,7 @@ from cryptography.hazmat.primitives.asymmetric.ec import (
     EllipticCurvePrivateKey, EllipticCurvePublicKey
 )
 from keylib import ECPrivateKey, ECPublicKey
-from utilitybelt import is_hex
-
+from .utils import is_hex
 
 class InvalidKeyError(ValueError):
     def __init__(self, message, errors):
