@@ -8,8 +8,8 @@ from setuptools import setup, find_packages
 
 setup(
     name='jsontokens',
-    version='0.0.3',
-    url='https://github.com/blockstack/jwt-py',
+    version='0.0.4',
+    url='https://github.com/blockstack/jsontokens-py',
     license='MIT',
     author='Blockstack Developers',
     author_email='hello@onename.com',
@@ -19,9 +19,7 @@ setup(
     zip_safe=False,
     install_requires=[
         'cryptography>=1.9',
-        'keylib>=0.0.2',
-        'requests>=2.9.1',
-        'utilitybelt>=0.2.6'
+        'keylib>=0.1.1',
     ],
     classifiers=[
         'Intended Audience :: Developers',
