@@ -95,12 +95,12 @@ def _unpack_token_json(token):
     payload = None
 
     try:
-        headers = [base64url_decode(h) for h in token['header']]
+        headers = [base64url_decode(str(h)) for h in token['header']]
     except (TypeError, binascii.Error):
         raise DecodeError("Invalid header padding")
 
     try:
-        payload_data = base64url_decode(token['payload'])
+        payload_data = base64url_decode(str(token['payload']))
     except (TypeError, binascii.Error):
         raise DecodeError("Invalid payload padding")
 
@@ -110,7 +110,7 @@ def _unpack_token_json(token):
         raise DecodeError('Invalid payload string: {}'.format(e))
 
     try:
-        signatures = [base64url_decode(s) for s in token['signature']]
+        signatures = [base64url_decode(str(s)) for s in token['signature']]
     except (TypeError, binascii.Error):
         raise DecodeError("Invalid crypto padding")
 
@@ -274,11 +274,14 @@ class TokenVerifier():
 
         TODO: support multiple types of keys
         """
+        if not isinstance(verifying_key_or_keys, (list, str, unicode)):
+            raise ValueError("Invalid verifying key(s): expected list or string")
+
         if isinstance(verifying_key_or_keys, list):
             return self._verify_multi(token, verifying_key_or_keys, num_required=num_required)
 
         else:
-            return self._verify_single(token, verifying_key_or_keys)
+            return self._verify_single(token, str(verifying_key_or_keys))
         
 
     @classmethod
